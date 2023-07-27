@@ -115,12 +115,29 @@ class _EmployeeScreenState extends ConsumerState<EmployeeScreen>
                   ),
                   child: Column(
                     children: [
+                      const SizedBox(
+                        height: 12.0,
+                      ),
+                      Text(
+                        'Add Employee',
+                        style: h2(context: context, fontWeight: '700'),
+                      ),
+                      const SizedBox(
+                        height: 12.0,
+                      ),
+                      AppWidget.divider(),
+                      const SizedBox(
+                        height: 12.0,
+                      ),
                       TextFieldCpn(
                         controller: _oneCtl,
                         focusNode: _oneFn,
                         labelText: "Employee Name",
-                        hintText: 'PATRA',
+                        hintText: 'Junior Yogithesymbian',
                         customIsNext: true,
+                      ),
+                      const SizedBox(
+                        height: 25.0,
                       ),
                     ],
                   ),
@@ -196,14 +213,93 @@ class _EmployeeScreenState extends ConsumerState<EmployeeScreen>
                     }
                   }
                 },
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    return Text(
-                      'hello ${_employeeModel?[index]?.employeeName}',
-                    );
-                  },
-                  itemCount: _employeeModel?.length ?? 0,
+                child: Column(
+                  children: [
+                    Table(
+                      border: TableBorder.all(),
+                      columnWidths: const <int, TableColumnWidth>{
+                        0: FixedColumnWidth(32),
+                        1: FlexColumnWidth(),
+                        2: FlexColumnWidth(),
+                      },
+                      defaultVerticalAlignment:
+                          TableCellVerticalAlignment.middle,
+                      children: const [
+                        TableRow(
+                          decoration: BoxDecoration(
+                            color: Colors.transparent,
+                          ),
+                          children: <Widget>[
+                            TableCell(
+                              verticalAlignment:
+                                  TableCellVerticalAlignment.middle,
+                              child: SizedBox(
+                                width: 64,
+                                child: Text('ID'),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 32,
+                              child: Text('NAME'),
+                            ),
+                            Center(
+                              child: SizedBox(
+                                width: 64,
+                                child: Text('EMAIL'),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    ListView.builder(
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        final data = _employeeModel?[index];
+                        return Table(
+                          border: TableBorder.all(),
+                          columnWidths: const <int, TableColumnWidth>{
+                            0: FixedColumnWidth(32),
+                            1: FlexColumnWidth(),
+                            2: FlexColumnWidth(),
+                          },
+                          defaultVerticalAlignment:
+                              TableCellVerticalAlignment.middle,
+                          children: [
+                            TableRow(
+                              decoration: const BoxDecoration(
+                                color: Colors.transparent,
+                              ),
+                              children: <Widget>[
+                                TableCell(
+                                  verticalAlignment:
+                                      TableCellVerticalAlignment.middle,
+                                  child: SizedBox(
+                                    width: 64,
+                                    child:
+                                        Text(data?.employeeId.toString() ?? ""),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 32,
+                                  child:
+                                      Text(data?.employeeName.toString() ?? ""),
+                                ),
+                                Center(
+                                  child: SizedBox(
+                                    width: 64,
+                                    child: Text(
+                                        data?.employeeMail.toString() ?? ""),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        );
+                      },
+                      itemCount: _employeeModel?.length ?? 0,
+                    ),
+                  ],
                 ),
               ),
             ),
