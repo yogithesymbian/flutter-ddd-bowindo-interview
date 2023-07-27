@@ -2,7 +2,6 @@ Flutter project that utilizes the API documented at <https://documenter.getpostm
 
 <https://resocoder.com/2020/03/09/flutter-firebase-ddd-course-1-domain-driven-design-principles/>
 
-````
 # Flutter Bowindo
 
 ![Project Logo](link_to_your_logo.png)
@@ -14,6 +13,16 @@ This is a Flutter project that utilizes the API provided by [API Bowindo](https:
 ## Screenshots
 
 showcasing its features and functionality.
+
+<div style="display: flex;">
+  <div style="flex: 50%; padding: 5px;">
+    <img src="ss1.jpeg" alt="Screenshot 1" width="300" height="600">
+  </div>
+  <div style="flex: 50%; padding: 5px;">
+    <img src="ss2.jpeg" alt="Screenshot 2" width="300" height="600">
+  </div>
+</div>
+
 
 ## Features
 
