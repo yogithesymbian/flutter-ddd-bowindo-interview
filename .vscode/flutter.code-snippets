@@ -1,0 +1,355 @@
+{
+  "infrastructure data transfer object (DTO)": {
+    "prefix": "infra-dto",
+    "body": [
+      "import 'dart:convert';",
+      "",
+      "import 'package:freezed_annotation/freezed_annotation.dart';",
+      "",
+      "part '${1:model}_dto.freezed.dart';",
+      "part '${1:model}_dto.g.dart';",
+      "",
+      "@freezed",
+      "class ${2:Model}DTO with _$${2:Model}DTO {",
+      "  const factory ${2:Model}DTO({",
+      "    String? data,",
+      "  }) = _${2:Model}DTO;",
+      "",
+      "  factory ${2:Model}DTO.fromJson(Map<String, dynamic> json) =>",
+      "      _$${2:Model}DTOFromJson(json);",
+      "}",
+      ""
+    ],
+    "description": "infrastructure data transfer object (DTO)"
+  },
+  "infrastructure dto init nested object": {
+    "prefix": "infra-dto-init-nested-object",
+    "body": [
+      "@JsonKey(name: '${1:json_name}', fromJson: ${2:CurrentClassName}DTO._${3:objectName}FromJson, toJson: ${2:CurrentClassName}DTO._${3:objectName}ToJson) ${4:ChildClassName}DTO? ${3:objectName},"
+    ],
+    "description": "infrastructure dto nested object"
+  },
+  "infrastructure dto define nested object": {
+    "prefix": "infra-dto-define-nested-object",
+    "body": [
+      "static ${1:ChildClassName}DTO? _${2:objectName}FromJson(Map<String, dynamic>? json) {",
+      "  if (json == null) return null;",
+      "  return ${1:ChildClassName}DTO.fromJson(json);",
+      "}",
+      "",
+      "static Map<String, dynamic>? _${2:objectName}ToJson(${1:ChildClassName}DTO? ${2:objectName}) {",
+      "  if (${2:objectName} == null) return null;",
+      "  return ${2:objectName}.toJson();",
+      "}"
+    ],
+    "description": "infrastructure dto define nested object"
+  },
+  "infrastructure dto init nested array": {
+    "prefix": "infra-dto-init-nested-array",
+    "body": [
+      "@JsonKey(name: '${1:json_name}') @Default([]) List<${1:ChildClassName}>? data,"
+    ],
+    "description": "infrastructure dto init nested array"
+  },
+  "infra-dto-jsonserializeble": {
+    "prefix": "infra-dto-jsonserializeble",
+    "body": [
+      "import 'package:json_annotation/json_annotation.dart';",
+      "part '${1:name}_dto.g.dart';",
+      "",
+      "@JsonSerializable(fieldRename: FieldRename.snake)",
+      "class ${2:Name}DTO {",
+      "  String? error;",
+      "  ${2:Name}DTO({",
+      "    this.error, ",
+      "  });",
+      "  factory ${2:Name}DTO.fromJson(Map<String, dynamic> json) =>",
+      "      _$${2:Name}DTOFromJson(json);",
+      "",
+      "  Map<String, dynamic> toJson() => _$${2:Name}DTOToJson(this);",
+      "}"
+    ],
+    "description": "infra-dto-jsonserializeble"
+  },
+  "infra-payload-jsonserializeble": {
+    "prefix": "infra-payload-jsonserializeble",
+    "body": [
+      "import 'package:json_annotation/json_annotation.dart';",
+      "part '${1:name}_payload.g.dart';",
+      "",
+      "@JsonSerializable(fieldRename: FieldRename.snake)",
+      "class ${2:Name}Payload {",
+      "  String? error;",
+      "  ${2:Name}Payload({",
+      "    this.error, ",
+      "  });",
+      "  factory ${2:Name}Payload.fromJson(Map<String, dynamic> json) =>",
+      "      _$${2:Name}PayloadFromJson(json);",
+      "",
+      "  Map<String, dynamic> toJson() => _$${2:Name}PayloadToJson(this);",
+      "}"
+    ],
+    "description": "infra-dto-jsonserializeble"
+  },
+  "domain-model-jsonserializeble": {
+    "prefix": "domain-model-jsonserializeble",
+    "body": [
+      "import 'package:json_annotation/json_annotation.dart';",
+      "part '${1:name}_model.g.dart';",
+      "",
+      "@JsonSerializable()",
+      "class ${2:Name}Model {",
+      "  String? error;",
+      "  ${2:Name}Model({this.error, });",
+      "  factory ${2:Name}Model.fromJson(Map<String, dynamic> json) =>",
+      "      _$${2:Name}ModelFromJson(json);",
+      "",
+      "  Map<String, dynamic> toJson() => _$${2:Name}ModelToJson(this);",
+      "}"
+    ],
+    "description": "domain-model-jsonserializeble"
+  },
+  "domain service method": {
+    "prefix": "domain-service-meth",
+    "body": [
+      "Future<AppResult<${1:DomainModel}DTO>> ${2:endPointName}() {",
+      "  return AppResult.guardFuture(",
+      "    () async => _networkService.${2:endPointName}().then(",
+      "      (dto) {",
+      "        return ${1:DomainModel}DTO.fromJson(dto.toJson());",
+      "      },",
+      "    ),",
+      "  );",
+      "}"
+    ],
+    "description": "domain service method"
+  },
+  "presentation router auto-route": {
+    "prefix": "present-auto-route",
+    "body": [
+      "AutoRoute(page: ${1:Name}Screen),"
+    ],
+    "description": "presentation router auto-route"
+  },
+  "presentation intent screen ( push )": {
+    "prefix": "route-push",
+    "body": [
+      "context.router.push(const ${1:Name}Route());"
+    ],
+    "description": "presentation intent screen ( push )"
+  },
+  "presentation intent screen ( replace )": {
+    "prefix": "route-push-replace",
+    "body": [
+      "context.router.replace(const ${1:Name}Route());"
+    ],
+    "description": "presentation intent screen ( replace )"
+  },
+  "riverpoad listen": {
+    "prefix": "ref-riverpoad-listen",
+    "body": [
+      "ref.listen<${1:Name}State>(${2:name}BlocProvider, (previous, next) {",
+      "   ${3:code_here}",
+      "  // if (next.isLoggedIn) {",
+      "    // print('listen on ${next.isLoggedIn}');",
+      "    // Navigator.of(context).pushReplacementNamed(Routes.home);",
+      "    // context.router.push(const WalkthroughRoute());",
+      "  // }",
+      "});"
+    ],
+    "description": "riverpoad listen"
+  },
+  "riverpoad read": {
+    "prefix": "ref-riverpoad-read",
+    "body": [
+      "ref.read(${1:name}BlocProvider.notifier)"
+    ],
+    "description": "riverpoad read"
+  },
+  "text - for vscode spell": {
+    "prefix": "text",
+    "body": [
+      "Text('${1:string}'),"
+    ],
+    "description": "text - for vscode spell"
+  },
+  "Icon(Icons - for vscode spell": {
+    "prefix": "icon",
+    "body": [
+      "Icon(Icons.${1:icon_name}),"
+    ],
+    "description": "Icon(Icons - for vscode spell"
+  },
+  "size media query context": {
+    "prefix": "size-mediaquery",
+    "body": [
+      "final size = MediaQuery.of(context).size;"
+    ],
+    "description": "size media query context"
+  },
+  "image assets": {
+    "prefix": "ima-assets",
+    "body": [
+      "Image.asset(",
+      "  ${1:asset_name} ?? ${2:if_null} ,",
+      "  // fit: BoxFit.cover,",
+      "),"
+    ],
+    "description": "image assets"
+  },
+  "application bloc ( method )": {
+    "prefix": "application-bloc-method",
+    "body": [
+      "LoaderBloc loaderBloc = ref.read(loaderBlocProvider.notifier);",
+      "    ErrorBloc errorBloc = ref.read(errorBlocProvider.notifier);",
+      "    ${1:NameSensitive}Service ${2:nameSensitive}Service =",
+      "        ref.read(${2:nameSensitive}ServiceProvider);",
+      "    print(\"START\");",
+      "",
+      "    loaderBloc",
+      "        .whileLoading(() => ${2:nameSensitive}Service.${3:methodName})",
+      "        .then((value) {",
+      "      value.when(success: (data) async {",
+      "        print(data);",
+      "      }, failure: (error) {",
+      "        errorBloc.handle(error);",
+      "      });",
+      "    });"
+    ],
+    "description": "application bloc ( method )"
+  },
+   // APPLICATION
+   "apps-bloc-func": {
+    "prefix": "apps-bloc-func",
+    "body": [
+      "Future<void> ${3:networkName}({int? limit, int? offset}) async {",
+      "  LoaderBloc loaderBloc = ref.read(loaderBlocProvider.notifier);",
+      "  ErrorBloc errorBloc = ref.read(errorBlocProvider.notifier);",
+      "  ${1:Name}Service ${2:nameName}Service = ref.read(${2:nameName}ServiceProvider);",
+      "",
+      "  await loaderBloc.whileLoading(() => ${2:nameName}Service.${3:networkName}()).then((value) {",
+      "    value.when(success: (model) async {",
+      "    }, failure: (error) {",
+      "      errorBloc.handle(error);",
+      "    });",
+      "  });",
+      "}"
+    ],
+    "description": "apps-bloc-func"
+  },
+
+  // DOMAIN SERVICE
+  "domain-service-func": {
+    "prefix": "domain-service-func",
+    "body": [
+      "Future<AppResult<${1:DomainModel}>> ${2:functionName}() {",
+      "  return AppResult.guardFuture(",
+      "    () async => _networkService.${2:functionName}().then(",
+      "          (dto) => ${1:DomainModel}(",
+      "            id: dto['data']?['id'] ?? 0,",
+      "          ),",
+      "        ),",
+      "  );",
+      "}"
+    ],
+    "description": "domain-service-func"
+  },
+  // INFRASTRUCTURE
+  "infra-json-snake": {
+    "prefix": "infra-json-snake",
+    "body": [
+      "@JsonSerializable(fieldRename: FieldRename.snake)"
+    ],
+    "description": "infra-json-snake"
+  },
+  "infra-json-from-to": {
+    "prefix": "infra-json-from-to",
+    "body": [
+      "factory ${1:Name}DTO.fromJson(Map<String, dynamic> json) => _$${1:Name}DTOFromJson(json);",
+      "Map<String, dynamic> toJson() => _$${1:Name}DTOToJson(this);"
+    ],
+    "description": "infra-json-from-to"
+  },
+
+  // PRESENTATION
+  "stf-presentation": {
+    "prefix": "stf-presentation",
+    "body": [
+      "import 'package:auto_route/auto_route.dart';",
+      "import 'package:egisto/presentation/router/app_router.dart';",
+      "import 'package:egisto/presentation/widgets/app_bar.dart';",
+      "import 'package:egisto/presentation/widgets/button/icon_button_cpn.dart';",
+      "import 'package:egisto/presentation/widgets/widget_support.dart';",
+      "import 'package:egisto/utils/colors.dart';",
+      "import 'package:egisto/utils/config/app_constants.dart';",
+      "import 'package:egisto/utils/images.dart';",
+      "import 'package:egisto/utils/styles.dart';",
+      "import 'package:flutter/material.dart';",
+      "import 'package:flutter_form_builder/flutter_form_builder.dart';",
+      "import 'package:flutter_riverpod/flutter_riverpod.dart';",
+      "",
+      "class ${1:Home}Screen extends ConsumerStatefulWidget {",
+      "  const ${1:Home}Screen({Key? key}) : super(key: key);",
+      "",
+      "  @override",
+      "  ConsumerState<${1:Home}Screen> createState() => _${1:Home}ScreenState();",
+      "}",
+      "",
+      "class _${1:Home}ScreenState extends ConsumerState<${1:Home}Screen> {",
+      "  @override",
+      "  Widget build(BuildContext context) {",
+      "    double width = AppWidget.getWidthScreen(context);",
+      "    double height = AppWidget.getHeightScreen(context);",
+      "    return Scaffold(",
+      "      backgroundColor: backgroundColor2,",
+      "      appBar: AppBarCpn(",
+      "        color: grey100,",
+      "        left: IconButtonCpn(",
+      "          function: () {",
+      "            context.router.pop();",
+      "          },",
+      "          bgColor: grey100,",
+      "          path: icBack,",
+      "          iconColor: black,",
+      "          hasOutline: false,",
+      "        ),",
+      "        center: Text(",
+      "          \"${1:Home}\",",
+      "          style: h3(color: black, fontWeight: '700'),",
+      "        ),",
+      "        right: SizedBox(",
+      "          width: width * 0.1,",
+      "        ),",
+      "      ),",
+      "      body: Container(),",
+      "    );",
+      "  }",
+      "}",
+      "",
+      ""
+    ],
+    "description": "stf-presentation"
+  },
+  "presentation unfocus on tap": {
+    "prefix": "pres-gesture-unfocused",
+    "body": [
+      "onTap: () => FocusScope.of(context).unfocus(),"
+    ],
+    "description": "presentation unfocus on tap"
+  },
+  "intent screen": {
+    "prefix": "intent-screen",
+    "body": [
+      "context.router.push(const ${1:Home}Route());"
+    ],
+    "description": "intent screent"
+  },
+  "responsive-hw": {
+    "prefix": "responsive-hw",
+    "body": [
+      "final width = AppWidget.getWidthScreen(context);",
+      "final height = AppWidget.getHeightScreen(context);"
+    ],
+    "description": "responsive-hw"
+  },
+}
